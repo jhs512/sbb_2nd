@@ -1,2 +1,7 @@
 <h1 th:text="${question.subject}"></h1>
 <div th:text="${question.content}"></div>
+
+<form th:action="@{|/answer/create/${question.id}|}" method="POST">
+    <textarea required placeholder="답변내용을 등록해주세요." name="content" rows="15"></textarea>
+    <input type="submit" value="작성">
+</form>
