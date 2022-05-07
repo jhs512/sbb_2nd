@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/question")
@@ -46,12 +47,12 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "question_form";
         }
 
-        SiteUser author = userService.getUser(2); // 임시
+        SiteUser author = userService.getUser(principal.getName()); // 임시
 
         questionService.create(questionForm.getSubject(), questionForm.getContent(), author);
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
