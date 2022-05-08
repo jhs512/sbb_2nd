@@ -114,6 +114,6 @@ public class QuestionController {
 
         questionService.vote(question, siteUser);
 
-        return String.format("redirect:/question/detail/%s", id);
+        return "redirect:/question/detail/%d".formatted(id);
     }
 }
